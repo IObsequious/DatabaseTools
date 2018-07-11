@@ -1,0 +1,35 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <EnableGlobbing>true</EnableGlobbing>
+    <IncludeUIReferences>true</IncludeUIReferences>
+    <IncludeCommonReferences>true</IncludeCommonReferences>
+  </PropertyGroup>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BladeRunner</RootNamespace>
+    <AssemblyName>BladeRunner</AssemblyName>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="EF\" />
+  </ItemGroup>
+
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+</Project>

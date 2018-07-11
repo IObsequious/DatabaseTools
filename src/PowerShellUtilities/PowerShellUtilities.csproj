@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IsPowerShellProject>true</IsPowerShellProject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CE2D66DE-BB31-4F26-95EF-62CDB81B5CCC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PowerShellUtilities</RootNamespace>
+    <AssemblyName>PowerShellUtilities</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Management.Automation" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="PowerShellUtilities.format.ps1xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>PowerShellUtilities</CustomToolNamespace>
+    </None>
+    <None Include="Schemas\PowerShellUtilities.Format.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Start-Debug.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WUApiLib">
+      <Guid>{B596CC9F-56E5-419E-A622-E01BB457431E}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AbstractPSCmdlet.cs" />
+    <Compile Include="Commands\GetJurisdictionCommand.cs" />
+    <Compile Include="Commands\GetJurisdictionListCommand.cs" />
+    <Compile Include="Commands\GetWUUpdateCommand.cs" />
+    <Compile Include="Commands\ImportJurisdictionCommand.cs" />
+    <Compile Include="Commands\UpdateCollection`1.cs" />
+    <Compile Include="Commands\UpdateDownloaderHelper.cs" />
+    <Compile Include="Commands\UpdateSearcherHelper.cs" />
+    <Compile Include="Commands\UpdateServiceManagerHelper.cs" />
+    <Compile Include="Commands\WindowsUpdate.cs" />
+    <Compile Include="JsonModel\JsonModelSerializer.cs" />
+    <Compile Include="JsonModel\Jurisdictions\Document.cs" />
+    <Compile Include="JsonModel\Jurisdictions\Jurisdiction.cs" />
+    <Compile Include="JsonModel\Jurisdictions\JurisdictionCollection.cs" />
+    <Compile Include="JsonModel\Jurisdictions\JurisdictionData.cs" />
+    <Compile Include="JsonModel\Jurisdictions\StandardSet.cs" />
+    <Compile Include="JsonModel\Jurisdictions\StandardSetArray.cs" />
+    <Compile Include="JsonModel\List\JurisdictionList.cs" />
+    <Compile Include="JsonModel\List\JurisdictionListData.cs" />
+    <Compile Include="JsonModel\List\JurisdictionListDataItem.cs" />
+    <Compile Include="JsonModel\StandardSets\Document.cs" />
+    <Compile Include="JsonModel\StandardSets\Jurisdiction.cs" />
+    <Compile Include="JsonModel\StandardSets\License.cs" />
+    <Compile Include="JsonModel\StandardSets\Standard.cs" />
+    <Compile Include="JsonModel\StandardSets\StandardConverter.cs" />
+    <Compile Include="JsonModel\StandardSets\Standards.cs" />
+    <Compile Include="JsonModel\StandardSets\StandardSet.cs" />
+    <Compile Include="JsonModel\StandardSets\StandardSetCollection.cs" />
+    <Compile Include="JsonModel\StandardSets\StandardSetData.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\PagingUtilities.cs" />
+    <Compile Include="Utilities\ProgressRecordFactory.cs" />
+    <Compile Include="Utilities\RestApi.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Update\index.xml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(Windir)\System32\WindowsPowerShell\v1.0\PowerShell.exe</StartProgram>
+    <StartArguments>-NoExit -File Start-Debug.ps1</StartArguments>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

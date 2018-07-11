@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+  <xs:attributeGroup name="VariableAttributeGroup">
+    <xs:attribute name="Name" type="xs:string" />
+    <xs:attribute name="Value" type="xs:string" />
+    <xs:attribute name="Required" type="xs:string" use="optional" />
+    <xs:attribute name="Principal" type="xs:string" use="optional" />
+    <xs:attribute name="Cluster" type="xs:string" use="optional" />
+  </xs:attributeGroup>
+
+
+  <xs:element name="Source" type="xs:string" />
+  <xs:element name="Install" type="xs:string" />
+  <xs:element name="Validation" type="xs:unsignedShort" />
+  
+  <xs:element name="Variable" type="Variable">
+    <xs:annotation>
+      <xs:documentation>Represents an environmental variable</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+
+  <xs:element name="Installer" type="Installer"/>
+
+
+
+  <xs:element name="ServerFeatures" type="ServerFeatures" />
+  <xs:complexType name="ServerFeatures">
+    <xs:sequence>
+      <xs:element ref="Group" />
+    </xs:sequence>
+    <xs:attribute name="OSVersion" type="xs:string" />
+  </xs:complexType>
+
+  <xs:element name="Group" type="Group" />
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element ref="Source" minOccurs="0" />
+      <xs:element ref="ServerFeature" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+  </xs:complexType>
+
+
+  <xs:element name="ServerFeature" type="ServerFeature" />
+  <xs:complexType name="ServerFeature">
+    <xs:sequence>
+      <xs:element ref="Install" />
+      <xs:element ref="Validation" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" />
+  </xs:complexType>
+
+  <xs:element name="Installables" type="Installables" />
+  <xs:complexType name="Installables">
+    <xs:sequence>
+      <xs:element ref="Installable" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Installable" type="Installable" />
+  <xs:complexType name="Installable">
+    <xs:sequence>
+      
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:element name="Components" type="Components" />
+  <xs:complexType name="Components">
+    <xs:sequence>
+      <xs:element ref="Component" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Component" type="Component" />
+  <xs:complexType name="Component">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="SQL" type="SQL" />
+  <xs:complexType name="SQL">
+    <xs:sequence>
+      <xs:element ref="SQL" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Roles" type="Roles" />
+  <xs:complexType name="Roles">
+    <xs:sequence>
+      <xs:element ref="Role" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Role" type="Role" />
+  <xs:complexType name="Role">
+    <xs:sequence>
+      
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Integrations" type="Integrations" />
+  <xs:complexType name="Integrations">
+    <xs:sequence>
+      <xs:element ref="Integration" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="Integration" type="Integration" />
+  <xs:complexType name="Integration">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="Installer2">
+    <xs:sequence>
+      <xs:element name="Installables">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Installable">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element name="Variable">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                        <xs:attribute name="Value" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SourceFolder" type="xs:string" />
+                    <xs:element maxOccurs="unbounded" name="Download">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Type" type="xs:string" />
+                          <xs:element minOccurs="0" name="URL" type="xs:string" />
+                          <xs:element minOccurs="0" name="File" type="xs:string" />
+                          <xs:element minOccurs="0" name="FileSize" type="xs:unsignedInt" />
+                          <xs:element minOccurs="0" name="Extract">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Type" type="xs:string" />
+                                <xs:element name="ExistingFile" type="xs:string" />
+                                <xs:element minOccurs="0" name="FileSize" type="xs:unsignedShort" />
+                                <xs:element minOccurs="0" name="FileVersion" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Run">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="ExistingFile" type="xs:string" />
+                                <xs:element minOccurs="0" name="FileSize" type="xs:string" />
+                                <xs:element minOccurs="0" name="FileVersion" type="xs:string" />
+                                <xs:element minOccurs="0" name="Command" type="xs:string" />
+                                <xs:element minOccurs="0" name="Argument" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="FileVersion" type="xs:string" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="AdditionalDownload" type="xs:string" />
+                    <xs:element maxOccurs="unbounded" name="Install">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="SourceSubFolder" type="xs:string" />
+                          <xs:element maxOccurs="unbounded" name="Validation">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="0" name="Condition" type="xs:string" />
+                                <xs:element name="Type" type="xs:string" />
+                                <xs:element name="Value" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="Log" type="xs:string" />
+                          <xs:element minOccurs="0" name="LogFile" type="xs:string" />
+                          <xs:element minOccurs="0" name="CommandLines">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="CommandLine">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="INIFile">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element maxOccurs="unbounded" name="Section">
+                                              <xs:complexType>
+                                                <xs:sequence minOccurs="0">
+                                                  <xs:element maxOccurs="unbounded" name="Entry">
+                                                    <xs:complexType>
+                                                      <xs:sequence>
+                                                        <xs:element minOccurs="0" name="Condition" type="xs:string" />
+                                                        <xs:element name="Value" type="xs:string" />
+                                                        <xs:element minOccurs="0" name="Log" type="xs:string" />
+                                                      </xs:sequence>
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="Name" type="xs:string" use="required" />
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element minOccurs="0" name="Condition" type="xs:string" />
+                                      <xs:element name="Executable" type="xs:string" />
+                                      <xs:element minOccurs="0" name="AnswerFile">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element maxOccurs="unbounded" name="Entry">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element minOccurs="0" name="Condition" type="xs:string" />
+                                                  <xs:element name="Value" type="xs:string" />
+                                                  <xs:element minOccurs="0" name="Log" type="xs:string" />
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                      <xs:element name="Switches">
+                                        <xs:complexType mixed="true">
+                                          <xs:sequence>
+                                            <xs:element maxOccurs="unbounded" name="Switch">
+                                              <xs:complexType mixed="true">
+                                                <xs:sequence>
+                                                  <xs:element minOccurs="0" name="Condition" type="xs:string" />
+                                                  <xs:element name="Value" type="xs:string" />
+                                                  <xs:element minOccurs="0" name="Log" type="xs:string" />
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="Reboot" type="xs:string" use="optional" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="Firewall">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element maxOccurs="unbounded" name="Rule">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element minOccurs="0" name="Condition" type="xs:string" />
+                                      <xs:element name="Name" type="xs:string" />
+                                      <xs:element name="Type" type="xs:string" />
+                                      <xs:element name="Value" type="xs:string" />
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="Name" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Components">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Component">
+              <xs:complexType>
+                <xs:sequence minOccurs="0">
+                  <xs:element maxOccurs="unbounded" name="Variable">
+                    <xs:complexType>
+                      <xs:attribute name="Name" type="xs:string" use="required" />
+                      <xs:attribute name="Value" type="xs:string" use="required" />
+                      <xs:attribute name="Principal" type="xs:string" use="optional" />
+                      <xs:attribute name="Required" type="xs:string" use="optional" />
+                      <xs:attribute name="Comment" type="xs:string" use="optional" />
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="Name" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SQL">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="SQL">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="Variable">
+                    <xs:complexType>
+                      <xs:attribute name="Name" type="xs:string" use="required" />
+                      <xs:attribute name="Value" type="xs:string" use="required" />
+                      <xs:attribute name="Required" type="xs:string" use="optional" />
+                      <xs:attribute name="Principal" type="xs:string" use="optional" />
+                      <xs:attribute name="Cluster" type="xs:string" use="optional" />
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="Version" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Roles">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Role">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:element name="Validation">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:choice maxOccurs="unbounded">
+                            <xs:element name="OperatingSystems">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element maxOccurs="unbounded" name="OperatingSystem">
+                                    <xs:complexType mixed="true">
+                                      <xs:sequence minOccurs="0">
+                                        <xs:element name="Version" type="xs:string" />
+                                        <xs:element name="Feature">
+                                          <xs:complexType>
+                                            <xs:sequence>
+                                              <xs:element name="Name" type="xs:string" />
+                                              <xs:element name="Validation" type="xs:unsignedShort" />
+                                            </xs:sequence>
+                                          </xs:complexType>
+                                        </xs:element>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Memory" type="xs:unsignedShort" />
+                            <xs:element name="Certificate" type="xs:string" />
+                            <xs:element name="Combinations">
+                              <xs:complexType>
+                                <xs:sequence minOccurs="0">
+                                  <xs:element maxOccurs="unbounded" name="Combination" type="xs:string" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Multiple" type="xs:string" />
+                            <xs:element name="Cluster" type="xs:string" />
+                            <xs:element name="SQL">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element minOccurs="0" name="Instance" type="xs:string" />
+                                  <xs:element minOccurs="0" name="Port" type="xs:string" />
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="NLB" type="xs:string" />
+                            <xs:element name="Compatibility">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element name="IncompatibleSoftware">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="Type" type="xs:string" />
+                                        <xs:element name="Value" type="xs:string" />
+                                      </xs:sequence>
+                                      <xs:attribute name="Name" type="xs:string" use="required" />
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:choice>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Admin">
+                      <xs:complexType>
+                        <xs:attribute name="Type" type="xs:string" use="required" />
+                        <xs:attribute name="Account" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="ServerFeatures">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="ServerFeature">
+                            <xs:complexType>
+                              <xs:attribute name="Name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="OSVersion" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Prerequisites">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Prerequisite">
+                            <xs:complexType>
+                              <xs:sequence minOccurs="0">
+                                <xs:element name="Condition" type="xs:string" />
+                              </xs:sequence>
+                              <xs:attribute name="Name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="OSVersion" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Condition" type="xs:string" />
+                    <xs:element maxOccurs="unbounded" name="Dependency">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Install">
+                      <xs:complexType>
+                        <xs:attribute name="Installable" type="xs:string" use="required" />
+                        <xs:attribute name="Install" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="Firewall">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Rule">
+                            <xs:complexType>
+                              <xs:attribute name="Type" type="xs:string" use="required" />
+                              <xs:attribute name="Value" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element maxOccurs="unbounded" name="SQL">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element maxOccurs="unbounded" name="Feature" type="xs:string" />
+                          <xs:element name="Collation" type="xs:string" />
+                        </xs:sequence>
+                        <xs:attribute name="Version" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Multiple" type="xs:string" />
+                  </xs:choice>
+                </xs:sequence>
+                <xs:attribute name="Name" type="xs:string" use="required" />
+                <xs:attribute name="Component" type="xs:string" use="required" />
+                <xs:attribute name="SQL" type="xs:string" use="optional" />
+                <xs:attribute name="Type" type="xs:string" use="optional" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Integrations">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Integration">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="Dependency" type="xs:string" />
+                  <xs:element name="Target" type="xs:string" />
+                </xs:sequence>
+                <xs:attribute name="Name" type="xs:string" use="required" />
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="version" type="xs:decimal" use="required" />
+  </xs:complexType>
+
+
+
+
+
+  <xs:complexType name="Installer">
+    <xs:sequence>
+      <xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element ref="ServerFeatures" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element ref="Installables" minOccurs="0" />
+      <xs:element ref="Components" minOccurs="0" />
+      <xs:element ref="SQL" minOccurs="0" />
+      <xs:element ref="Roles" minOccurs="0" />
+      <xs:element ref="Integrations" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="version" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="Variable">
+    <xs:attributeGroup ref="VariableAttributeGroup" />
+  </xs:complexType>
+  
+</xs:schema>

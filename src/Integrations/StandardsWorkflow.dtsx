@@ -1,0 +1,513 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/6/2018 4:41:46 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="BACKTRACK"
+  DTS:CreatorName="BACKTRACK\Administrator"
+  DTS:DTSID="{5CBAE466-76DE-42C9-B47E-7F0D4624E5A1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.106"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="StandardsWorkflow"
+  DTS:PackageType="5"
+  DTS:VersionBuild="15"
+  DTS:VersionGUID="{75D33361-E12F-4929-A257-3C6989AF0FB9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BacktrackDbConnection]"
+      DTS:CreationName="ADO.NET:SQL"
+      DTS:DTSID="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+      DTS:ObjectName="BacktrackDbConnection">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BACKTRACK;Integrated Security=SSPI;Connect Timeout=30;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Documents Table"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{C0A65155-D594-4672-902A-7008B8CC5A4C}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Documents Table"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [Standard_DB];&#xA;GO&#xA;&#xA;CREATE TABLE [dbo].[tbl_documents]&#xA;(&#xA;    [documents_key] UNIQUEIDENTIFIER NOT NULL ROWGUIDCOL CONSTRAINT [df_tbl_documents_documents_key] DEFAULT(NEWSEQUENTIALID()),&#xA;&#xA;    [standard_sets_key] UNIQUEIDENTIFIER NOT NULL,&#xA;&#xA;    [documents_id] NVARCHAR(50) NULL,&#xA;    [documents_asnIdentifier] NVARCHAR(8) NULL,&#xA;    [documents_publicationStatus] NVARCHAR(20) NULL,&#xA;    [documents_title] NVARCHAR(250) NULL,&#xA;    [documents_valid] INT NULL,&#xA;    [documents_sourceURL] NVARCHAR(500) NULL,&#xA;&#xA;    CONSTRAINT [pk_tbl_documents_documents_key] PRIMARY KEY NONCLUSTERED ([documents_key]),&#xA;&#xA;    CONSTRAINT [fk_tbl_documents_standard_sets_key] FOREIGN KEY ([standard_sets_key]) REFERENCES [tbl_standard_sets]([standard_sets_key])&#xA;)&#xA;"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Jurisdictions Table"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{a307f047-6b03-4ba3-93aa-43f983a00db6}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Jurisdictions Table"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [Standard_DB];&#xA;GO&#xA;&#xA;CREATE TABLE [dbo].[tbl_jurisdictions]&#xA;(&#xA;    [jurisdictions_key] UNIQUEIDENTIFIER NOT NULL ROWGUIDCOL CONSTRAINT [df_tbl_jurisdictions_jurisdictions_key] DEFAULT(NEWSEQUENTIALID()),&#xA;&#xA;    [standard_sets_key] UNIQUEIDENTIFIER NOT NULL,&#xA;&#xA;    [jurisdictions_id] NVARCHAR(250) NOT NULL,&#xA;    [jurisdictions_title] NVARCHAR(100) NULL,&#xA;&#xA;    CONSTRAINT [pk_tbl_jurisdictions_jurisdictions_key] PRIMARY KEY NONCLUSTERED ([jurisdictions_key]),&#xA;&#xA;    CONSTRAINT [fk_tbl_jurisdictions_standard_sets_key] FOREIGN KEY ([standard_sets_key]) REFERENCES [tbl_standard_sets]([standard_sets_key])&#xA;)"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Licenses Table"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{bff81cda-6227-48ce-9369-20aa8ae01881}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Licenses Table"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [Standard_DB];&#xA;GO&#xA;&#xA;CREATE TABLE [dbo].[tbl_licenses]&#xA;(&#xA;    [licenses_key] UNIQUEIDENTIFIER NOT NULL ROWGUIDCOL CONSTRAINT [df_tbl_licenses_licenses_key] DEFAULT(NEWSEQUENTIALID()),&#xA;&#xA;    [standard_sets_key] UNIQUEIDENTIFIER NOT NULL,&#xA;&#xA;    [licenses_title] NVARCHAR(250) NULL,&#xA;    [licenses_url] NVARCHAR(500) NULL,&#xA;    [licenses_rightsHolder] NVARCHAR(250) NULL,&#xA;&#xA;    CONSTRAINT [pk_tbl_licenses_id] PRIMARY KEY NONCLUSTERED ([licenses_key]),&#xA;&#xA;    CONSTRAINT [fk_tbl_licenses_standard_sets_key] FOREIGN KEY ([standard_sets_key]) REFERENCES [tbl_standard_sets]([standard_sets_key])&#xA;)"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Procedures"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{03FAA2AD-912B-4C9D-8188-C80CDD5B1BD9}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Procedures"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [Standard_DB]&#xA;GO&#xA;&#xA;/********************************************************************************&#xA;        Insert Procedures&#xA;********************************************************************************/&#xA;&#xA;CREATE PROCEDURE [dbo].[sp_insert_tbl_documents]&#xA;(&#xA;    @documents_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @documents_id NVARCHAR(50) = NULL,&#xA;    @documents_asnIdentifier NVARCHAR(8) = NULL,&#xA;    @documents_publicationStatus NVARCHAR(20) = NULL,&#xA;    @documents_title NVARCHAR(250) = NULL,&#xA;    @documents_valid INT = NULL,&#xA;    @documents_sourceURL NVARCHAR(500) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        INSERT INTO [dbo].[tbl_documents]&#xA;        (&#xA;            [documents_key],&#xA;            [standard_sets_key],&#xA;            [documents_id],&#xA;            [documents_asnIdentifier],&#xA;            [documents_publicationStatus],&#xA;            [documents_title],&#xA;            [documents_valid],&#xA;            [documents_sourceURL]&#xA;        )&#xA;        VALUES&#xA;        (&#xA;            @documents_key,&#xA;            @standard_sets_key,&#xA;            @documents_id,&#xA;            @documents_asnIdentifier,&#xA;            @documents_publicationStatus,&#xA;            @documents_title,&#xA;            @documents_valid,&#xA;            @documents_sourceURL&#xA;        );&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_insert_tbl_jurisdictions]&#xA;(&#xA;    @jurisdictions_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @jurisdictions_id NVARCHAR(250),&#xA;    @jurisdictions_title NVARCHAR(100) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        INSERT INTO [dbo].[tbl_jurisdictions]&#xA;        (&#xA;            [jurisdictions_key],&#xA;            [standard_sets_key],&#xA;            [jurisdictions_id],&#xA;            [jurisdictions_title]&#xA;        )&#xA;        VALUES&#xA;        (&#xA;            @jurisdictions_key,&#xA;            @standard_sets_key,&#xA;            @jurisdictions_id,&#xA;            @jurisdictions_title&#xA;        );&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_insert_tbl_licenses]&#xA;(&#xA;    @licenses_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @licenses_title NVARCHAR(250) = NULL,&#xA;    @licenses_url NVARCHAR(500) = NULL,&#xA;    @licenses_rightsHolder NVARCHAR(250) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        INSERT INTO [dbo].[tbl_licenses]&#xA;        (&#xA;            [licenses_key],&#xA;            [standard_sets_key],&#xA;            [licenses_title],&#xA;            [licenses_url],&#xA;            [licenses_rightsHolder]&#xA;        )&#xA;        VALUES&#xA;        (&#xA;            @licenses_key,&#xA;            @standard_sets_key,&#xA;            @licenses_title,&#xA;            @licenses_url,&#xA;            @licenses_rightsHolder&#xA;        );&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_insert_tbl_standard_sets]&#xA;(&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_id NVARCHAR(250) = NULL,&#xA;    @standard_sets_subject NVARCHAR(250) = NULL,&#xA;    @standard_sets_title NVARCHAR(250) = NULL,&#xA;    @standard_sets_educationLevels NVARCHAR(MAX) = NULL,&#xA;    @standard_sets_rightsHolder NVARCHAR(250) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        INSERT INTO [dbo].[tbl_standard_sets]&#xA;        (&#xA;            [standard_sets_key],&#xA;            [standard_sets_id],&#xA;            [standard_sets_subject],&#xA;            [standard_sets_title],&#xA;            [standard_sets_educationLevels],&#xA;            [standard_sets_rightsHolder]&#xA;        )&#xA;        VALUES&#xA;        (&#xA;            @standard_sets_key,&#xA;            @standard_sets_id,&#xA;            @standard_sets_subject,&#xA;            @standard_sets_title,&#xA;            @standard_sets_educationLevels,&#xA;            @standard_sets_rightsHolder&#xA;        );&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_insert_tbl_standards]&#xA;(&#xA;    @standards_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @standards_id NVARCHAR(250) = NULL,&#xA;    @standards_asnIdentifier NVARCHAR(250) = NULL,&#xA;    @standards_position INT = NULL,&#xA;    @standards_depth INT = NULL,&#xA;    @standards_statementNotation NVARCHAR(250) = NULL,&#xA;    @standards_statementLabel NVARCHAR(250) = NULL,&#xA;    @standards_listId NVARCHAR(250) = NULL,&#xA;    @standards_description NVARCHAR(MAX) = NULL,&#xA;    @standards_ancestorIds NVARCHAR(MAX) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        INSERT INTO [dbo].[tbl_standards]&#xA;        (&#xA;            [standards_key],&#xA;            [standard_sets_key],&#xA;            [standards_id],&#xA;            [standards_asnIdentifier],&#xA;            [standards_position],&#xA;            [standards_depth],&#xA;            [standards_statementNotation],&#xA;            [standards_statementLabel],&#xA;            [standards_listId],&#xA;            [standards_description],&#xA;            [standards_ancestorIds]&#xA;        )&#xA;        VALUES&#xA;        (&#xA;            @standards_key,&#xA;            @standard_sets_key,&#xA;            @standards_id,&#xA;            @standards_asnIdentifier,&#xA;            @standards_position,&#xA;            @standards_depth,&#xA;            @standards_statementNotation,&#xA;            @standards_statementLabel,&#xA;            @standards_listId,&#xA;            @standards_description,&#xA;            @standards_ancestorIds&#xA;        );&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;/********************************************************************************&#xA;        Update Procedures&#xA;********************************************************************************/&#xA;&#xA;CREATE PROCEDURE [dbo].[sp_update_tbl_documents]&#xA;(&#xA;    @documents_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @documents_id NVARCHAR(50) = NULL,&#xA;    @documents_asnIdentifier NVARCHAR(8) = NULL,&#xA;    @documents_publicationStatus NVARCHAR(20) = NULL,&#xA;    @documents_title NVARCHAR(250) = NULL,&#xA;    @documents_valid INT = NULL,&#xA;    @documents_sourceURL NVARCHAR(500) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        IF @documents_id IS NULL&#xA;            BEGIN&#xA;                SET @documents_id = (SELECT [documents_id] FROM [dbo].[tbl_documents] WHERE @documents_key = [documents_key]);&#xA;            END&#xA;        IF @documents_asnIdentifier IS NULL&#xA;            BEGIN&#xA;                SET @documents_asnIdentifier = (SELECT [documents_asnIdentifier] FROM [dbo].[tbl_documents] WHERE @documents_key = [documents_key]);&#xA;            END&#xA;        IF @documents_publicationStatus IS NULL&#xA;            BEGIN&#xA;                SET @documents_publicationStatus = (SELECT [documents_publicationStatus] FROM [dbo].[tbl_documents] WHERE @documents_key = [documents_key]);&#xA;            END&#xA;        IF @documents_title IS NULL&#xA;            BEGIN&#xA;                SET @documents_title = (SELECT [documents_title] FROM [dbo].[tbl_documents] WHERE @documents_key = [documents_key]);&#xA;            END&#xA;        IF @documents_valid IS NULL&#xA;            BEGIN&#xA;                SET @documents_valid = (SELECT [documents_valid] FROM [dbo].[tbl_documents] WHERE @documents_key = [documents_key]);&#xA;            END&#xA;        IF @documents_sourceURL IS NULL&#xA;            BEGIN&#xA;                SET @documents_sourceURL = (SELECT [documents_sourceURL] FROM [dbo].[tbl_documents] WHERE @documents_key = [documents_key]);&#xA;            END&#xA;        UPDATE [dbo].[tbl_documents]&#xA;        SET [standard_sets_key] = @standard_sets_key,&#xA;        [documents_id] = @documents_id,&#xA;        [documents_asnIdentifier] = @documents_asnIdentifier,&#xA;        [documents_publicationStatus] = @documents_publicationStatus,&#xA;        [documents_title] = @documents_title,&#xA;        [documents_valid] = @documents_valid,&#xA;        [documents_sourceURL] = @documents_sourceURL&#xA;        WHERE [documents_key] = @documents_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_update_tbl_jurisdictions]&#xA;(&#xA;    @jurisdictions_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @jurisdictions_id NVARCHAR(250),&#xA;    @jurisdictions_title NVARCHAR(100) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        IF @jurisdictions_title IS NULL&#xA;            BEGIN&#xA;                SET @jurisdictions_title = (SELECT [jurisdictions_title] FROM [dbo].[tbl_jurisdictions] WHERE @jurisdictions_key = [jurisdictions_key]);&#xA;            END&#xA;        UPDATE [dbo].[tbl_jurisdictions]&#xA;        SET [standard_sets_key] = @standard_sets_key,&#xA;        [jurisdictions_id] = @jurisdictions_id,&#xA;        [jurisdictions_title] = @jurisdictions_title&#xA;        WHERE [jurisdictions_key] = @jurisdictions_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_update_tbl_licenses]&#xA;(&#xA;    @licenses_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @licenses_title NVARCHAR(250) = NULL,&#xA;    @licenses_url NVARCHAR(500) = NULL,&#xA;    @licenses_rightsHolder NVARCHAR(250) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        IF @licenses_title IS NULL&#xA;            BEGIN&#xA;                SET @licenses_title = (SELECT [licenses_title] FROM [dbo].[tbl_licenses] WHERE @licenses_key = [licenses_key]);&#xA;            END&#xA;        IF @licenses_url IS NULL&#xA;            BEGIN&#xA;                SET @licenses_url = (SELECT [licenses_url] FROM [dbo].[tbl_licenses] WHERE @licenses_key = [licenses_key]);&#xA;            END&#xA;        IF @licenses_rightsHolder IS NULL&#xA;            BEGIN&#xA;                SET @licenses_rightsHolder = (SELECT [licenses_rightsHolder] FROM [dbo].[tbl_licenses] WHERE @licenses_key = [licenses_key]);&#xA;            END&#xA;        UPDATE [dbo].[tbl_licenses]&#xA;        SET [standard_sets_key] = @standard_sets_key,&#xA;        [licenses_title] = @licenses_title,&#xA;        [licenses_url] = @licenses_url,&#xA;        [licenses_rightsHolder] = @licenses_rightsHolder&#xA;        WHERE [licenses_key] = @licenses_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_update_tbl_standard_sets]&#xA;(&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_id NVARCHAR(250) = NULL,&#xA;    @standard_sets_subject NVARCHAR(250) = NULL,&#xA;    @standard_sets_title NVARCHAR(250) = NULL,&#xA;    @standard_sets_educationLevels NVARCHAR(MAX) = NULL,&#xA;    @standard_sets_rightsHolder NVARCHAR(250) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        IF @standard_sets_id IS NULL&#xA;            BEGIN&#xA;                SET @standard_sets_id = (SELECT [standard_sets_id] FROM [dbo].[tbl_standard_sets] WHERE @standard_sets_key = [standard_sets_key]);&#xA;            END&#xA;        IF @standard_sets_subject IS NULL&#xA;            BEGIN&#xA;                SET @standard_sets_subject = (SELECT [standard_sets_subject] FROM [dbo].[tbl_standard_sets] WHERE @standard_sets_key = [standard_sets_key]);&#xA;            END&#xA;        IF @standard_sets_title IS NULL&#xA;            BEGIN&#xA;                SET @standard_sets_title = (SELECT [standard_sets_title] FROM [dbo].[tbl_standard_sets] WHERE @standard_sets_key = [standard_sets_key]);&#xA;            END&#xA;        IF @standard_sets_educationLevels IS NULL&#xA;            BEGIN&#xA;                SET @standard_sets_educationLevels = (SELECT [standard_sets_educationLevels] FROM [dbo].[tbl_standard_sets] WHERE @standard_sets_key = [standard_sets_key]);&#xA;            END&#xA;        IF @standard_sets_rightsHolder IS NULL&#xA;            BEGIN&#xA;                SET @standard_sets_rightsHolder = (SELECT [standard_sets_rightsHolder] FROM [dbo].[tbl_standard_sets] WHERE @standard_sets_key = [standard_sets_key]);&#xA;            END&#xA;        UPDATE [dbo].[tbl_standard_sets]&#xA;        SET [standard_sets_id] = @standard_sets_id,&#xA;        [standard_sets_subject] = @standard_sets_subject,&#xA;        [standard_sets_title] = @standard_sets_title,&#xA;        [standard_sets_educationLevels] = @standard_sets_educationLevels,&#xA;        [standard_sets_rightsHolder] = @standard_sets_rightsHolder&#xA;        WHERE [standard_sets_key] = @standard_sets_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_update_tbl_standards]&#xA;(&#xA;    @standards_key UNIQUEIDENTIFIER,&#xA;    @standard_sets_key UNIQUEIDENTIFIER,&#xA;    @standards_id NVARCHAR(250) = NULL,&#xA;    @standards_asnIdentifier NVARCHAR(250) = NULL,&#xA;    @standards_position INT = NULL,&#xA;    @standards_depth INT = NULL,&#xA;    @standards_statementNotation NVARCHAR(250) = NULL,&#xA;    @standards_statementLabel NVARCHAR(250) = NULL,&#xA;    @standards_listId NVARCHAR(250) = NULL,&#xA;    @standards_description NVARCHAR(MAX) = NULL,&#xA;    @standards_ancestorIds NVARCHAR(MAX) = NULL&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        IF @standards_id IS NULL&#xA;            BEGIN&#xA;                SET @standards_id = (SELECT [standards_id] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_asnIdentifier IS NULL&#xA;            BEGIN&#xA;                SET @standards_asnIdentifier = (SELECT [standards_asnIdentifier] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_position IS NULL&#xA;            BEGIN&#xA;                SET @standards_position = (SELECT [standards_position] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_depth IS NULL&#xA;            BEGIN&#xA;                SET @standards_depth = (SELECT [standards_depth] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_statementNotation IS NULL&#xA;            BEGIN&#xA;                SET @standards_statementNotation = (SELECT [standards_statementNotation] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_statementLabel IS NULL&#xA;            BEGIN&#xA;                SET @standards_statementLabel = (SELECT [standards_statementLabel] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_listId IS NULL&#xA;            BEGIN&#xA;                SET @standards_listId = (SELECT [standards_listId] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_description IS NULL&#xA;            BEGIN&#xA;                SET @standards_description = (SELECT [standards_description] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        IF @standards_ancestorIds IS NULL&#xA;            BEGIN&#xA;                SET @standards_ancestorIds = (SELECT [standards_ancestorIds] FROM [dbo].[tbl_standards] WHERE @standards_key = [standards_key]);&#xA;            END&#xA;        UPDATE [dbo].[tbl_standards]&#xA;        SET [standard_sets_key] = @standard_sets_key,&#xA;        [standards_id] = @standards_id,&#xA;        [standards_asnIdentifier] = @standards_asnIdentifier,&#xA;        [standards_position] = @standards_position,&#xA;        [standards_depth] = @standards_depth,&#xA;        [standards_statementNotation] = @standards_statementNotation,&#xA;        [standards_statementLabel] = @standards_statementLabel,&#xA;        [standards_listId] = @standards_listId,&#xA;        [standards_description] = @standards_description,&#xA;        [standards_ancestorIds] = @standards_ancestorIds&#xA;        WHERE [standards_key] = @standards_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;/********************************************************************************&#xA;        Delete Procedures&#xA;********************************************************************************/&#xA;&#xA;CREATE PROCEDURE [dbo].[sp_delete_tbl_documents]&#xA;(&#xA;    @documents_key UNIQUEIDENTIFIER&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        DELETE FROM [dbo].[tbl_documents] WHERE [documents_key] = @documents_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_delete_tbl_jurisdictions]&#xA;(&#xA;    @jurisdictions_key UNIQUEIDENTIFIER&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        DELETE FROM [dbo].[tbl_jurisdictions] WHERE [jurisdictions_key] = @jurisdictions_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_delete_tbl_licenses]&#xA;(&#xA;    @licenses_key UNIQUEIDENTIFIER&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        DELETE FROM [dbo].[tbl_licenses] WHERE [licenses_key] = @licenses_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_delete_tbl_standard_sets]&#xA;(&#xA;    @standard_sets_key UNIQUEIDENTIFIER&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        DELETE FROM [dbo].[tbl_standard_sets] WHERE [standard_sets_key] = @standard_sets_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;CREATE PROCEDURE [dbo].[sp_delete_tbl_standards]&#xA;(&#xA;    @standards_key UNIQUEIDENTIFIER&#xA;)&#xA;AS&#xA;    BEGIN&#xA;        SET NOCOUNT ON;&#xA;        DELETE FROM [dbo].[tbl_standards] WHERE [standards_key] = @standards_key;&#xA;        RETURN @@ROWCOUNT;&#xA;    END&#xA;GO&#xA;&#xA;"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Standard Database"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{303E4B6E-E4FC-423E-9AB1-9A3DF3ED04A0}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Standard Database"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [master];&#xA;GO&#xA;&#xA;IF (DB_ID(N'Standard_DB') IS NOT NULL) &#xA;    BEGIN&#xA;        ALTER DATABASE [Standard_DB] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;&#xA;        DROP DATABASE [Standard_DB];&#xA;    END&#xA;GO&#xA;&#xA;CREATE DATABASE [Standard_DB];&#xA;GO&#xA;&#xA;USE [Standard_DB];&#xA;ALTER AUTHORIZATION ON DATABASE::[Standard_DB] TO [sa]&#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET COMPATIBILITY_LEVEL = 130&#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET ANSI_NULL_DEFAULT OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET ANSI_NULLS OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET ANSI_PADDING OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET ANSI_WARNINGS OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET ARITHABORT OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET AUTO_CLOSE OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET AUTO_SHRINK OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET AUTO_UPDATE_STATISTICS ON &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET CURSOR_CLOSE_ON_COMMIT OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET CURSOR_DEFAULT  GLOBAL &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET CONCAT_NULL_YIELDS_NULL OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET NUMERIC_ROUNDABORT OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET QUOTED_IDENTIFIER OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET RECURSIVE_TRIGGERS ON&#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET  ENABLE_BROKER &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET DATE_CORRELATION_OPTIMIZATION OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET TRUSTWORTHY OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET ALLOW_SNAPSHOT_ISOLATION OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET PARAMETERIZATION SIMPLE &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET READ_COMMITTED_SNAPSHOT OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET HONOR_BROKER_PRIORITY OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET RECOVERY FULL &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET  MULTI_USER &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET PAGE_VERIFY CHECKSUM  &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET DB_CHAINING OFF &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET TARGET_RECOVERY_TIME = 60 SECONDS &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET DELAYED_DURABILITY = DISABLED &#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET QUERY_STORE = OFF&#xA;GO&#xA;&#xA;USE [Standard_DB]&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;&#xA;GO&#xA;&#xA;ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;&#xA;GO&#xA;&#xA;ALTER DATABASE [Standard_DB] SET  READ_WRITE &#xA;GO&#xA;"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Standard Table"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{ED56F925-AC0D-441D-9310-C7165555DD19}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Standard Table"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [Standard_DB];&#xA;GO&#xA;&#xA;CREATE TABLE [dbo].[tbl_standards]&#xA;(&#xA;    [standards_key] UNIQUEIDENTIFIER NOT NULL ROWGUIDCOL CONSTRAINT [df_tbl_standards_standards_key] DEFAULT(NEWSEQUENTIALID()),&#xA;&#xA;    [standard_sets_key] UNIQUEIDENTIFIER NOT NULL,&#xA;&#xA;    [standards_id] NVARCHAR(250) NULL,&#xA;    [standards_asnIdentifier] NVARCHAR(250) NULL,&#xA;    [standards_position] INT NULL,&#xA;    [standards_depth] INT NULL,&#xA;    [standards_statementNotation] NVARCHAR(250) NULL,&#xA;    [standards_statementLabel] NVARCHAR(250) NULL,&#xA;    [standards_listId] NVARCHAR(250) NULL,&#xA;    [standards_description] NVARCHAR(MAX),&#xA;    [standards_ancestorIds] NVARCHAR(MAX)&#xA;&#xA;&#xA;&#xA;    CONSTRAINT [pk_tbl_standards_standards_key] PRIMARY KEY NONCLUSTERED ([standards_key]),&#xA;&#xA;    CONSTRAINT [fk_tbl_standards_standard_sets_key] FOREIGN KEY ([standard_sets_key]) REFERENCES [tbl_standard_sets]([standard_sets_key])&#xA;)"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create StandardSet Table"
+      DTS:CreationName="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:Description="Execute T-SQL Statement Task"
+      DTS:DTSID="{8A5172B7-446B-46C4-82F7-DC3747EC6A42}"
+      DTS:ExecutableType="Microsoft.DbMaintenanceTSQLExecuteTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create StandardSet Table"
+      DTS:TaskContact="Execute T-SQL Statement Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F6DAD756-9D8E-41A3-82BB-A7EC9E0EB779}"
+          SQLTask:SqlStatementSource="USE [Standard_DB];&#xA;GO&#xA;&#xA;CREATE TABLE [dbo].[tbl_standard_sets]&#xA;(&#xA;    [standard_sets_key] UNIQUEIDENTIFIER NOT NULL ROWGUIDCOL CONSTRAINT [df_tbl_standard_sets_standard_sets_key] DEFAULT(NEWSEQUENTIALID()),&#xA;&#xA;    [standard_sets_id] NVARCHAR(250) NULL,&#xA;    [standard_sets_subject] NVARCHAR(250) NULL,&#xA;    [standard_sets_title] NVARCHAR(250) NULL, &#xA;    [standard_sets_educationLevels] NVARCHAR(MAX) NULL,&#xA;    [standard_sets_rightsHolder] NVARCHAR(250) NULL,&#xA;&#xA;    CONSTRAINT [pk_tbl_standard_sets_id] PRIMARY KEY NONCLUSTERED ([standard_sets_key])&#xA;)"
+          SQLTask:ServerVersion="9"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Import Standard Data"
+      DTS:CreationName="Microsoft.ExecuteProcess"
+      DTS:Description="Execute Process Task"
+      DTS:DTSID="{f8287c4f-03c3-4464-a364-b14779cdfbed}"
+      DTS:ExecutableType="Microsoft.ExecuteProcess"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Import Standard Data"
+      DTS:TaskContact="Execute Process Task;Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecuteProcessData
+          Executable="C:\stage\workspaces\sql\DatabaseTools\bin\Debug\BladeRunner\BladeRunner.exe"
+          Arguments="standard"
+          WindowStyle="Maximized" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1088BB36-E0B9-440B-B7F6-32934BF214F0}"
+      DTS:From="Package\Create Standard Database"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Create StandardSet Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{8AEA227B-2693-4747-87E5-8C8566FE269E}"
+      DTS:From="Package\Create StandardSet Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Create Licenses Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{81B70263-8DB7-42A6-BD6A-9696E064732C}"
+      DTS:From="Package\Create Licenses Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Create Documents Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D0185CE-F940-4A1D-A324-34D75137DE72}"
+      DTS:From="Package\Create Documents Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Create Jurisdictions Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{A4392350-D00A-4AC9-8243-667158C21A7C}"
+      DTS:From="Package\Create Jurisdictions Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Create Standard Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{CC96E424-2060-4FF4-B2FC-9EA29DE2D120}"
+      DTS:From="Package\Create Standard Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Create Procedures" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{AAF54238-38B3-4305-9DC7-858907645235}"
+      DTS:From="Package\Create Procedures"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Import Standard Data" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Create Documents Table"
+          TopLeft="708,264" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Create Jurisdictions Table"
+          TopLeft="356,164" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Create Licenses Table"
+          TopLeft="712,52" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Create Procedures"
+          TopLeft="351,317" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Create Standard Database"
+          TopLeft="76,50" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Create Standard Table"
+          TopLeft="76,151" />
+        <NodeLayout
+          Size="200,42"
+          Id="Package\Create StandardSet Table"
+          TopLeft="356,50" />
+        <NodeLayout
+          Size="182,42"
+          Id="Package\Import Standard Data"
+          TopLeft="527,444" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="278,71">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="78,0"
+              Start="0,0"
+              End="70.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="70.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="556,72">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156,0"
+              Start="0,0"
+              End="148.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="148.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="804,94">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,170"
+              Start="0,0"
+              End="0,162.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,162.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="774.333333333333,264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-318.833333333333,-58"
+              Start="0,0"
+              End="-318.833333333333,-50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-19.4832146490336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-19.4832146490336"
+                    Point2="0,-23.4832146490336"
+                    Point3="-4,-23.4832146490336" />
+                  <mssgle:LineSegment
+                    End="-314.833333333333,-23.4832146490336" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-314.833333333333,-23.4832146490336"
+                    Point2="-318.833333333333,-23.4832146490336"
+                    Point3="-318.833333333333,-27.4832146490336" />
+                  <mssgle:LineSegment
+                    End="-318.833333333333,-50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="356,185">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-96,-13"
+              Start="0,0"
+              End="-88.5,-13">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-44,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-44,0"
+                    Point2="-48,0"
+                    Point3="-48,-4" />
+                  <mssgle:LineSegment
+                    End="-48,-9" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-48,-9"
+                    Point2="-48,-13"
+                    Point3="-52,-13" />
+                  <mssgle:LineSegment
+                    End="-88.5,-13" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="433.5,359">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="184.5,85"
+              Start="0,0"
+              End="184.5,77.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.5"
+                    Point2="0,42.5"
+                    Point3="4,42.5" />
+                  <mssgle:LineSegment
+                    End="180.5,42.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="180.5,42.5"
+                    Point2="184.5,42.5"
+                    Point3="184.5,46.5" />
+                  <mssgle:LineSegment
+                    End="184.5,77.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="168,193">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="265.5,124"
+              Start="0,0"
+              End="265.5,116.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,58"
+                    Point2="0,62"
+                    Point3="4,62" />
+                  <mssgle:LineSegment
+                    End="261.5,62" />
+                  <mssgle:CubicBezierSegment
+                    Point1="261.5,62"
+                    Point2="265.5,62"
+                    Point3="265.5,66" />
+                  <mssgle:LineSegment
+                    End="265.5,116.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,146 @@
+﻿<Window
+    x:Class="DataWarehouseViewer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DataWarehouseViewer"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="1000"
+    Height="650"
+    Background="{DynamicResource Application.BackgroundBrushKey}"
+    BorderBrush="{DynamicResource Application.BorderBrushKey}"
+    Foreground="{DynamicResource Application.ForegroundBrushKey}"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <Window.CommandBindings>
+        <CommandBinding Command="Open" Executed="OnExecuteCommandOpen" />
+        <CommandBinding Command="Close" Executed="OnExecutedCommandClose" />
+        <CommandBinding Command="New" Executed="OnExecutedCommandNew" />
+        <CommandBinding Command="SaveAs" Executed="OnExecutedCommandSaveAs" />
+        <CommandBinding Command="Copy" Executed="OnExecutedCommandCopy" />
+    </Window.CommandBindings>
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type MenuItem}">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Background" Value="{DynamicResource Application.BackgroundBrushKey}" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid x:Name="MainGrid" Margin="7">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+
+        <Menu
+            x:Name="MainMenu"
+            Grid.Row="0"
+            Background="{DynamicResource Application.BackgroundBrushKey}">
+            <MenuItem Header="File">
+                <MenuItem Header="New">
+                    <MenuItem Command="New" Header="File" />
+                </MenuItem>
+                <MenuItem Command="Open" Header="Open" />
+                <Separator />
+                <MenuItem Command="SaveAs" Header="Save As..." />
+                <Separator />
+                <MenuItem Command="Close" Header="Exit" />
+            </MenuItem>
+        </Menu>
+
+        <TextBlock Grid.Row="1" Style="{DynamicResource TitleTextStyle}">Data Warehouse Viewer</TextBlock>
+
+        <TabControl
+            Grid.Row="2"
+            Background="Transparent"
+            ItemsSource="{x:Static local:MvvmUtilities.TabItems}">
+            <!--<TabItem Header="Jurisdictions" IsSelected="True">
+                <Grid>
+                    <DockPanel>
+                        <StackPanel
+                            Margin="8"
+                            DockPanel.Dock="Top"
+                            Orientation="Horizontal">
+                            <CheckBox x:Name="canUserReorder" Content="Allow Reorder" />
+                            <CheckBox
+                                x:Name="canUserResizeRows"
+                                Margin="8,0,0,0"
+                                Content="Allow Row Resizing" />
+                            <CheckBox
+                                x:Name="canUserResizeColumns"
+                                Margin="8,0,0,0"
+                                Content="Allow Column Resizing" />
+                            <CheckBox
+                                x:Name="canUserSort"
+                                Margin="8,0,0,0"
+                                Content="Allow Sorting" />
+                        </StackPanel>
+                        <DockPanel>
+                            <DataGrid
+                                x:Name="DatabaseGrid"
+                                AlternatingRowBackground="LightBlue"
+                                AreRowDetailsFrozen="True"
+                                AutoGenerateColumns="False"
+                                Background="LightGray"
+                                CanUserReorderColumns="{Binding IsChecked, ElementName=canUserReorder}"
+                                CanUserResizeColumns="{Binding IsChecked, ElementName=canUserResizeColumns}"
+                                CanUserResizeRows="{Binding IsChecked, ElementName=canUserResizeRows}"
+                                CanUserSortColumns="{Binding IsChecked, ElementName=canUserSort}"
+                                DockPanel.Dock="Top"
+                                FrozenColumnCount="2"
+                                GridLinesVisibility="Vertical"
+                                HeadersVisibility="All"
+                                RowBackground="LightYellow"
+                                SelectionMode="Extended"
+                                SelectionUnit="FullRow"
+                                VerticalScrollBarVisibility="Visible">
+                                <DataGrid.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Command="Copy" Header="Copy" />
+                                    </ContextMenu>
+                                </DataGrid.ContextMenu>
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="250"
+                                        Binding="{Binding Id}"
+                                        Header="Id" />
+                                    <DataGridTextColumn
+                                        Width="250"
+                                        Binding="{Binding Title}"
+                                        Header="Jurisdiction" />
+                                    <DataGridComboBoxColumn
+                                        Width="100"
+                                        ItemsSource="{x:Static local:MvvmUtilities.GetJurisdictionTypes}"
+                                        SelectedItemBinding="{Binding Type}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DockPanel>
+                    </DockPanel>
+                </Grid>
+            </TabItem>-->
+        </TabControl>
+
+
+        <Grid
+            Grid.Row="3"
+            Opacity="1"
+            Style="{DynamicResource FooterGrid}">
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Click="OnOKButtonClick"
+                    Content="OK"
+                    IsDefault="True"
+                    Style="{DynamicResource ButtonBaseStyle}" />
+                <Button
+                    Content="Cancel"
+                    IsCancel="True"
+                    Style="{DynamicResource ButtonBaseStyle}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

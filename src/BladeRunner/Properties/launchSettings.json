@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BladeRunner": {
+      "commandName": "Project",
+      "commandLineArgs": "standards"
+    }
+  }
+}

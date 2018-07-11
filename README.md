@@ -1,2 +1,1 @@
-# DatabaseTools
-Random Database Projects
+### Solution
